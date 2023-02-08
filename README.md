@@ -43,9 +43,9 @@ For more information on installing GKE with Terraform, please refer to the [Terr
 
 ## ExternalDNS Installation
 
-Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
-
 **If you are working with a different DNS provider please skip to step 5.**
+
+Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
 In this method, the policy is attached to an IAM user, and the credentials secrets for the IAM user are then made available using a Kubernetes secret.
 
@@ -130,7 +130,8 @@ helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
 ### 7. Adding credentials to externaldns-values.yaml
-Setting credentials by scrolling to the bottom of the file and changing the data section L137. (Credentials were generated on step 3)
+Setting credentials by scrolling to the bottom of the file and changing the data section L137 (Credentials were generated on step 3).
+You also need to change the domain name under `domainFilters`.
 
 ### 8. Install and upgrade external-dns using the values file:
 ```
@@ -158,9 +159,7 @@ For more information on cert-manager, please refer to the [cert-manager installa
 kubectl apply -f clusterissuer.yaml
 ```
 
-**Note: We have to make sure the 'class' section under clusterissuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case. In addition to that we'll have to create a seperate clusterissuer for every individual ingress as only ingress per secret is allowed.**
-
-To find your ingressclass name run - `kubectl get ingressclass`
+**Note: We have to make sure the 'class' section under clusterissuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case. In addition to that we'll have to create a seperate clusterissuer for every individual ingress as only ingress per secret is allowed.** (To find your ingressclass name run - `kubectl get ingressclass`)
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
