@@ -129,7 +129,10 @@ cd charts
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
-### 7. Install and upgrade external-dns using the values file:
+### 7. Adding credentials to externaldns-values.yaml
+Setting credentials by scrolling to the bottom of the file and changing the data section L137. (Credentials were generated on step 3)
+
+### 8. Install and upgrade external-dns using the values file:
 ```
 helm upgrade --install external-dns external-dns/external-dns -f externaldns-values.yaml
 ```
