@@ -29,7 +29,7 @@ git clone https://github.com/Cloud-Castles/gke-externaldns.git
 
 ### 2. Change into the repository directory:
 ```
-cd gke-externaldns
+cd ingress-externaldns-letsencrypt
 ```
 
 ### 3. Initialize Terraform:
