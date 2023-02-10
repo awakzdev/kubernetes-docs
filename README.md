@@ -24,7 +24,7 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 
 ### 1. Clone this repository:
 ```
-git clone https://github.com/Cloud-Castles/gke-externaldns.git
+git clone https://github.com/Cloud-Castles/externaldns-ingress-letsencrypt.git
 ```
 
 ### 2. Change into the repository directory:
