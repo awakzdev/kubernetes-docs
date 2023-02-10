@@ -250,4 +250,4 @@ kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Chall
 ```
 
 # License
-[GPL-3.0 license](https://github.com/awakzdev/gke-ingress-externaldns/blob/main/LICENSE)
+[Apache License 2.0](https://github.com/awakzdev/gke-ingress-externaldns/blob/main/LICENSE)
