@@ -21,12 +21,12 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 
 #### 1. Clone this repository:
 ```
-git clone https://github.com/Cloud-Castles/gke-externaldns.git
+git clone https://github.com/awakzdev/kubernetes-stack.git
 ```
 
 #### 2. Change into the repository directory:
 ```
-cd gke-externaldns
+cd kubernetes-stack
 ```
 
 #### 3. Initialize Terraform:
