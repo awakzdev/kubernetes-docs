@@ -11,13 +11,10 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 
 
 ## Overview
-[Kubernetes Engine Cluster using Terraform](#terraform-gke-installation)
-
-[ExternalDNS](#externaldns)
-
-[Cert-Manager (Letsencrypt)](#cert-manager)
-
-[Ingress-nginx](#ingress-nginx)
+- [Kubernetes Engine Cluster using Terraform](#terraform-gke-installation)
+- [ExternalDNS](#externaldns)
+- [Cert-Manager (Letsencrypt)](#cert-manager)
+- [Ingress-nginx](#ingress-nginx)
 
 
 ## Terraform GKE Installation
