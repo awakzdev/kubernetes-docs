@@ -1,13 +1,13 @@
-# Kubernetes Engine - Setting ExternalDNS / Ingress-nginx / Cert-manager (Letsencrypt)
+# Google Kubernetes Engine - Setting ExternalDNS / Ingress-nginx / Cert-manager (Letsencrypt)
 
 This repository contains Terraform code to install a Google Kubernetes Engine (GKE) cluster, with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (letsencrypt).
 
 ## Requirements
-- [Terraform 0.12 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-- [GCloud CLI](https://cloud.google.com/sdk/docs/install)
-- [Helm v3](https://helm.sh/docs/helm/helm_install/)
+- Terraform 0.12 or later
 - Google Cloud Platform account with permissions to create a GKE cluster and necessary firewall rules
 - Domain name to use with externaldns
+- [GCloud CLI](https://cloud.google.com/sdk/docs/install)
+- [Helm v3](https://helm.sh/docs/helm/helm_install/)
 
 
 ## Overview
@@ -21,7 +21,7 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 
 #### 1. Clone this repository:
 ```
-git clone https://github.com/Cloud-Castles/kubernetes-stack.git
+git clone https://github.com/awakzdev/kubernetes-stack.git
 ```
 
 #### 2. Change into the repository directory:
