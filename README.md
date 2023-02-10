@@ -1,6 +1,6 @@
-# Google Kubernetes Engine - ingress-nginx with externaldns and cert-manager
+# Google Kubernetes Engine - Setting ExternalDNS with Ingress-nginx and Cert-manager (Letsencrypt)
 
-This repository contains Terraform code to install a Google Kubernetes Engine (GKE) cluster, with additional installations of externaldns and ingress-nginx secured by cert-manager (letsencrypt).
+This repository contains Terraform code to install a Google Kubernetes Engine (GKE) cluster, with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (letsencrypt).
 
 ## Requirements
 - Terraform 0.12 or later
@@ -8,6 +8,17 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 - Domain name to use with externaldns
 - [GCloud CLI](https://cloud.google.com/sdk/docs/install)
 - [Helm v3](https://helm.sh/docs/helm/helm_install/)
+
+
+## Overview
+[Kubernetes Engine Cluster using Terraform](#terraform-gke-installation)
+
+[ExternalDNS](#externaldns)
+
+[Cert-Manager (Letsencrypt)](#cert-manager)
+
+[Ingress-nginx](#ingress-nginx)
+
 
 ## Terraform GKE Installation
 
@@ -41,7 +52,19 @@ terraform apply
 
 For more information on installing GKE with Terraform, please refer to the [Terraform GKE documentation.](https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke).
 
-## ExternalDNS Installation
+## ExternalDNS
+
+#### What it does? 
+
+It retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
+
+In a broader sense, ExternalDNS allows you to control DNS records dynamically via Kubernetes resources in a DNS provider-agnostic way.
+
+The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md) contains additional information and addresses several questions about key concepts of ExternalDNS.
+
+<image src="https://user-images.githubusercontent.com/96201125/218077591-25628816-337a-46e3-a198-cf5facf542e8.png" width=300>
+
+<hr>
 
 **If you are working with a different DNS provider please skip to step 5.**
 
@@ -119,22 +142,18 @@ kubectl create secret generic external-dns \
 
 Note: The value of EXTERNALDNS_NS should be set to the namespace in which ExternalDNS will be installed. The default value is "default".
 
-### 5. Navigate to the charts folder:
-```
-cd charts
-```
-
-### 6. Add the external-dns repository:
+### 5. Add the external-dns repository:
 ```
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
-### 7. Adding credentials to externaldns-values.yaml
+### 6. Adding credentials to externaldns-values.yaml
 Setting credentials by scrolling to the bottom of the file and changing the data section L137 (Credentials were generated on step 3).
 You also need to change the domain name under `domainFilters`.
 
-### 8. Install and upgrade external-dns using the values file:
+### 7. Install and upgrade external-dns using the values file:
 ```
+cd charts
 helm upgrade --install external-dns external-dns/external-dns -f externaldns-values.yaml
 ```
 
@@ -145,7 +164,20 @@ kubectl edit deployments
 
 For more information on configuring and using the external-dns chart, please refer to the [external-dns chart documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
 
-## Installation of Cert-Manager
+## Cert-Manager
+
+### What it does? 
+
+cert-manager adds certificates and certificate issuers as resource types in Kubernetes clusters, and simplifies the process of obtaining, renewing and using those certificates.
+
+It supports issuing certificates from a variety of sources, including Let's Encrypt (ACME), HashiCorp Vault, and Venafi TPP / TLS Protect Cloud, as well as local in-cluster issuance.
+
+cert-manager also ensures certificates remain valid and up to date, attempting to renew certificates at an appropriate time before expiry to reduce the risk of outages and remove toil.
+
+![cert-manager](https://user-images.githubusercontent.com/96201125/218077336-ca9ad9c3-c1cf-422a-a65b-f3d342127f63.svg)
+
+
+<hr>
 
 ### 1. Run the following command to install the cert-manager yaml:
 ```
@@ -163,7 +195,25 @@ kubectl apply -f clusterissuer.yaml
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
-## Installing ingress-nginx
+## Ingress-nginx
+
+### Overview
+
+Ingress may provide load balancing, SSL termination and name-based virtual hosting for Kubernetes using NGINX.
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+
+Here is a simple example where an Ingress sends all its traffic to one Service:
+![ingress](https://user-images.githubusercontent.com/96201125/218079432-176adbaf-31e8-4c13-910b-3f15799dfb59.svg)
+
+Figure. Ingress
+
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+
+An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically uses a service of type Service.Type=NodePort or Service.Type=LoadBalancer.
+
+[Learn more about Ingress on the main Kubernetes documentation site.](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+
+<hr>
 
 ### 1. To install ingress-nginx, run the following command:
 ```
@@ -172,7 +222,7 @@ helm upgrade --install ingress-nginx ingress-nginx \
   --namespace ingress-nginx --create-namespace
 ```
 
-For more information about the ingress-nginx, please refer to the [getting started documententation](https://kubernetes.github.io/ingress-nginx/deploy/)
+For more information about the ingress-nginx installation, please refer to the [getting started documententation](https://kubernetes.github.io/ingress-nginx/deploy/)
 
 ### 2. Create a deployment for Nginx:
 ```
@@ -198,3 +248,6 @@ This ingress structure may be applied for different services if needed. You may 
 ```
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
+
+# License
+GPL-3.0 license
