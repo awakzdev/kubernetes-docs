@@ -21,7 +21,7 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 
 #### 1. Clone this repository:
 ```
-git clone https://github.com/awakzdev/kubernetes-stack.git
+git clone https://github.com/Cloud-Castles/kubernetes-stack.git
 ```
 
 #### 2. Change into the repository directory:
@@ -72,7 +72,6 @@ In this method, the policy is attached to an IAM user, and the credentials secre
 This method is not the preferred method as the secrets in the credential file could be copied and used by an unauthorized threat actor. However, if the Kubernetes cluster is not hosted on AWS, it may be the only method available. Given this situation, it is important to limit the associated privileges to just minimal required privileges, i.e. read-write access to Route53, and not used a credentials file that has extra privileges beyond what is required.
 
 #### 1. Create IAM Policy
-Create an IAM policy with the following content:
 ```
 {
   "Version": "2012-10-17",
@@ -106,8 +105,6 @@ aws iam create-policy --policy-name "AllowExternalDNSUpdates" --policy-document 
 ```
 
 #### 2. Create IAM User and Attach Policy
-
-To create an IAM user and attach the policy, run the following commands:
 ```
 # create IAM user
 aws iam create-user --user-name "externaldns"
@@ -117,8 +114,6 @@ aws iam attach-user-policy --user-name "externaldns" --policy-arn $POLICY_ARN
 ```
 
 #### 3. Create Static Credentials
-
-To create the static credentials, run the following commands:
 ```
 SECRET_ACCESS_KEY=$(aws iam create-access-key --user-name "externaldns")
 cat <<-EOF > ./credentials
@@ -130,8 +125,6 @@ EOF
 ```
 
 #### 4. Create Kubernetes Secret from Credentials
-
-To create the Kubernetes secret from the credentials, run the following command:
 ```
 kubectl create secret generic external-dns \
   --namespace ${EXTERNALDNS_NS:-"default"} --from-file ./credentials
@@ -234,14 +227,12 @@ kubectl expose deployment nginx --port 80
 
 #### 4. Apply the Nginx Ingress YAML file:
 
-Note: Make sure you are in the root directory.
+Note: This ingress structure may be applied for different services if needed. You may edit and reuse for different services. **Make sure you are in the root directory.**
 ```
 kubectl apply -f ingress.yaml
 ```
 
-This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
-
-#### 5. Optional - To check the status of your certificates, run the following command:
+#### To check the status of your certificates, run the following command:
 ```
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
