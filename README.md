@@ -137,19 +137,28 @@ Note: The value of EXTERNALDNS_NS should be set to the namespace in which Extern
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
-#### 6. Adding credentials to externaldns-values.yaml
-Setting credentials by scrolling to the bottom of the file and changing the data section L137 (Credentials were generated on step 3).
-You also need to change the domain name under `domainFilters`.
+#### 6. Adding credentials to values.yaml
+[Credentials were generated on step 3](#3-create-static-credentials).
+```
+Setting credentials by editing the data section.
+  data:
+    credentials: |
+      [default]
+      aws_access_key_id = <CHANGE THIS>
+      aws_secret_access_key = <CHANGE THIS>
+
+Note - Make sure you change the domain name under `domainFilters` to match your domain name.
+domainFilters: [foo.domain.com]
+```
 
 #### 7. Install and upgrade external-dns using the values file:
 ```
-cd charts
 helm upgrade --install external-dns external-dns/external-dns -f externaldns-values.yaml
 ```
 
 **Optional - When installation is complete check to see credentials were set under 'env' section for our new deployment `my-release-external-dns`**
 ```
-kubectl edit deployments
+kubectl edit deployments my-release-external-dns
 ```
 
 For more information on configuring and using the external-dns chart, please refer to the [external-dns chart documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
@@ -225,10 +234,11 @@ We're gonna set this as ClusterIP to only receive communicating from inside the 
 kubectl expose deployment nginx --port 80
 ```
 
-#### 4. Apply the Nginx Ingress YAML file:
+#### 4. Apply the ingress YAML file:
 
-Note: This ingress structure may be applied for different services if needed. You may edit and reuse for different services. **Make sure you are in the root directory.**
+Note: This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
 ```
+cd ingress
 kubectl apply -f ingress.yaml
 ```
 
