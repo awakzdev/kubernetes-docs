@@ -242,7 +242,7 @@ cd ingress
 kubectl apply -f ingress.yaml
 ```
 
-#### To check the status of your certificates, run the following command:
+#### To check the status of your certificates run the following command:
 ```
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
