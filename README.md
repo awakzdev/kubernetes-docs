@@ -238,4 +238,4 @@ kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Chall
 ```
 
 # License
-[Apache License 2.0](https://github.com/Cloud-Castles/gke-externaldns/blob/main/LICENSE)
+[Apache License 2.0](https://github.com/awakzdev/kubernetes-stack/blob/main/LICENSE)
