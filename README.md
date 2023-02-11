@@ -194,7 +194,7 @@ kubectl apply -f clusterissuer.yaml
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
-## Ingress-nginx
+## Ingress-NGINX
 
 ### Overview
 
