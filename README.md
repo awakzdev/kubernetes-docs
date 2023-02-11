@@ -3,9 +3,9 @@
 This repository contains Terraform code to install a Google Kubernetes Engine (GKE) cluster, with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (letsencrypt).
 
 ## Requirements
-- Terraform 0.12 or later
 - Google Cloud Platform account with permissions to create a GKE cluster and necessary firewall rules
 - Domain name to use with externaldns
+- [Terraform 0.12 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 - [GCloud CLI](https://cloud.google.com/sdk/docs/install)
 - [Helm v3](https://helm.sh/docs/helm/helm_install/)
 
