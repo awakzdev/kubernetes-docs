@@ -187,6 +187,7 @@ For more information on cert-manager, please refer to the [cert-manager installa
 
 #### 2. Navigate to the cert-manager folder and install using:
 ```
+cd cert-manager
 kubectl apply -f clusterissuer.yaml
 ```
 
