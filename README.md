@@ -129,14 +129,7 @@ EOF
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
-#### 5. Create Kubernetes Secret from Credentials
-```
-kubectl create secret generic external-dns \
-  --namespace ${EXTERNALDNS_NS:-"default"} --from-file ./credentials
-```
-
-Note: The value of EXTERNALDNS_NS should be set to the namespace in which ExternalDNS will be installed. The default value is "default".
-#### 6. Adding credentials to values.yaml
+#### 5. Adding credentials to values.yaml
 [Credentials were generated on step 3](#3-create-static-credentials).
 ```
 Setting credentials by editing the data section.
@@ -150,7 +143,7 @@ Note - Make sure you change the domain name under `domainFilters` to match your 
 domainFilters: [foo.domain.com]
 ```
 
-#### 7. Install and upgrade external-dns using the values file:
+#### 6. Install and upgrade external-dns using the values file:
 ```
 helm upgrade --install external-dns external-dns/external-dns -f values.yaml
 ```
