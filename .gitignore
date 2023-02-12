@@ -35,6 +35,7 @@ terraform.rc
 
 # Ignore credentials file
 credentials.*
+credentials
 
 # lock files
 *.lock.*
