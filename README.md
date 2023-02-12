@@ -148,10 +148,7 @@ domainFilters: [foo.domain.com]
 helm upgrade --install external-dns external-dns/external-dns -f values.yaml
 ```
 
-**Optional - When installation is complete check to see credentials were set under 'env' section for our new deployment `external-dns`**
-```
-kubectl edit deployments external-dns
-```
+**When installation is complete check to see credentials are currently set by checking logs on your newly created pod.
 
 For more information on configuring and using the external-dns chart, please refer to the [external-dns chart documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
 
