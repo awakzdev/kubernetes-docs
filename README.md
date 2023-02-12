@@ -180,11 +180,11 @@ For more information on cert-manager, please refer to the [cert-manager installa
 #### 2. Navigate to the cert-manager folder and install using:
 ```
 cd cert-manager
-kubectl apply -f clusterissuer.yaml
+kubectl apply -f cluster-issuer.yaml
 ```
 **If the above step fails please repeat step 1.**
  
-**Note: We have to make sure the 'class' section under clusterissuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case. In addition to that we'll have to create a seperate clusterissuer for every individual ingress as only ingress per secret is allowed.** (To find your ingressclass name run - `kubectl get ingressclass`)
+**Note: We have to make sure the 'class' section under cluster-issuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case. In addition to that we'll have to create a seperate cluster-issuer for every individual ingress as only ingress per secret is allowed.** (To find your ingressclass name run - `kubectl get ingressclass`)
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
