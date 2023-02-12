@@ -139,7 +139,7 @@ Setting credentials by editing the data section.
       aws_access_key_id = <CHANGE THIS>
       aws_secret_access_key = <CHANGE THIS>
 
-Note - Make sure you change the domain name under `domainFilters` to match your domain name.
+Change the domain name under `domainFilters` to match your domain name.
 domainFilters: [foo.domain.com]
 ```
 
