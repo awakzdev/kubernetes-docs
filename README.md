@@ -124,19 +124,18 @@ aws_secret_access_key = $(echo $SECRET_ACCESS_KEY | jq -r '.AccessKey.SecretAcce
 EOF
 ```
 
-#### 4. Create Kubernetes Secret from Credentials
+#### 4. Add the external-dns repository:
+```
+helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
+```
+
+#### 5. Create Kubernetes Secret from Credentials
 ```
 kubectl create secret generic external-dns \
   --namespace ${EXTERNALDNS_NS:-"default"} --from-file ./credentials
 ```
 
 Note: The value of EXTERNALDNS_NS should be set to the namespace in which ExternalDNS will be installed. The default value is "default".
-
-#### 5. Add the external-dns repository:
-```
-helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
-```
-
 #### 6. Adding credentials to values.yaml
 [Credentials were generated on step 3](#3-create-static-credentials).
 ```
