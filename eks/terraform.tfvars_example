@@ -1,5 +1,8 @@
 name_prefix = "dev"
+
 aws_region  = "us-east-1"
+aws_iam_role = "AWSReservedSSO_AdministratorAccess_33bebb4004caf898"
+
 vpc_cidr    = "10.0.0.0/16"
 vpc_availability_zones = [
   "us-east-1a",

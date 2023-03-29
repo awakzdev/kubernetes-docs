@@ -1,11 +1,16 @@
-variable "aws_region" {
-  type        = string
-  description = "Region for AWS Resources"
-}
-
 variable "name_prefix" {
   type        = string
   description = "Naming prefix for Resources"
+}
+
+variable "aws_iam_role" {
+  type        = string
+  description = "Workload Identity Federation Role"
+}
+
+variable "aws_region" {
+  type        = string
+  description = "Region for AWS Resources"
 }
 
 variable "vpc_cidr" {

@@ -16,6 +16,11 @@ module "vpc_cni_irsa_role" {
   }
 }
 
+# IAM Role for 'Workload Identity Federation'
+data "aws_iam_role" "workload_identity_federation" {
+  name = var.aws_iam_role
+}
+
 # EKS module
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -25,9 +30,9 @@ module "eks" {
   cluster_version = "1.24"
 
   # Private EKS
-  cluster_endpoint_private_access = true
+  cluster_endpoint_private_access = false
   # Public EKS
-  cluster_endpoint_public_access  = false
+  cluster_endpoint_public_access  = true
 
   cluster_addons = {
     coredns = {
@@ -113,7 +118,6 @@ module "eks" {
     }
   }
 
-
   # aws-auth configmap
   # Self managed node groups will not automatically create the aws-auth configmap so we need to 
   create_aws_auth_configmap = true
@@ -121,28 +125,10 @@ module "eks" {
 
   aws_auth_roles = [
     {
-      rolearn  = "arn:aws:iam::66666666666:role/role1"
-      username = "role1"
+      rolearn  = "arn:aws:iam:${data.aws_caller_identity.current.account_id}:role/${data.aws_iam_role.workload_identity_federation.arn}"
+      username = "sso-admin:{{SessionName}}"
       groups   = ["system:masters"]
     },
-  ]
-
-  aws_auth_users = [
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user1"
-      username = "user1"
-      groups   = ["system:masters"]
-    },
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user2"
-      username = "user2"
-      groups   = ["system:masters"]
-    },
-  ]
-
-  aws_auth_accounts = [
-    "777777777777",
-    "888888888888",
   ]
 
   tags = {
