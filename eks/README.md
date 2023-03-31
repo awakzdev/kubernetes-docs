@@ -1,6 +1,6 @@
 # EKS on Terraform
 
-This Terraform repository provisions an Amazon EKS cluster and associated resources in your AWS account. 
+This Terraform code provisions an Amazon EKS cluster and associated resources in your AWS account. 
 
 1. Creates an IAM role for the VPC CNI IRSA, which is a Kubernetes addon that assigns IP addresses to nodes in the cluster.
 2. Creates an IAM role for the Workload Identity Federation using the aws_iam_role data source. This is used to authenticate Kubernetes service accounts within the EKS cluster.
