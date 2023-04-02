@@ -316,6 +316,6 @@ resource "null_resource" "apply_crd_link" {
   depends_on = [module.eks]
   
   provisioner "local-exec" {
-    command = "kubectl apply -k \"${var.crd_link}\""
+    command = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name} ; kubectl apply -k \"${var.crd_link}\""
   }
 }
