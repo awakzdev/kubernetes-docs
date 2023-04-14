@@ -238,37 +238,5 @@ kubectl apply -f ingress.yaml
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
 
-## Additional Helm Charts
-This repository contains helm charts with an option to configure an ingress controller
-- [Jenkins](https://github.com/jenkinsci/helm-charts)
-- [Wordpress](https://github.com/bitnami/charts/tree/main/bitnami/wordpress)
-
-#### Jenkins
-Get Repo Info
-```
-helm repo add jenkins https://charts.jenkins.io
-helm repo update
-```
-Install Chart
-```
-helm install jenkins jenkins/jenkins -f values-jenkins.yaml
-```
-To configure an ingress controller edit the values under `ingressClassName`
-```
-hostName:
-tls:
-- secretName: <CLUSTERISSUER-SECRET>
-  hosts:
-    - <jenkins.domain.com>
-```
-#### Wordpress
-```
-helm repo add my-repo https://charts.bitnami.com/bitnami
-helm install wordpress my-repo/wordpress -f values-wordpress.yaml
-```
-To configure an ingress controller edit the values under `ingress` (documentation exists inside the yaml).
-  
-An alternative may be running an additional ingress.yaml file with the appropriate wordpress service name set, You will also need to issue `clusterissuer.yaml` aswell to create a new secret.
-
 # License
 [Apache License 2.0](https://github.com/awakzdev/kubernetes-stack/blob/main/LICENSE)
