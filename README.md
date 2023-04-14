@@ -206,6 +206,12 @@ An Ingress does not expose arbitrary ports or protocols. Exposing services other
 <hr>
 
 #### 1. To install ingress-nginx, run the following command:
+Add the helm chart
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update  
+```
+Install the chart
 ```
 helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
