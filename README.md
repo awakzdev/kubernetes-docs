@@ -213,9 +213,7 @@ helm repo update
 ```
 Install the chart
 ```
-helm upgrade --install ingress-nginx ingress-nginx \
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
 ```
 
 For more information about the ingress-nginx installation, please refer to the [getting started documententation](https://kubernetes.github.io/ingress-nginx/deploy/)
