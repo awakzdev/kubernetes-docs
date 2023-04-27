@@ -16,7 +16,6 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 - [Cert-Manager (Lets-encrypt)](#cert-manager)
 - [Ingress-NGINX](#ingress-nginx)
 
-
 ## Terraform GKE Installation
 
 #### 1. Clone this repository:
@@ -51,7 +50,7 @@ For more information on installing GKE with Terraform, please refer to the [Terr
 
 ## ExternalDNS
 
-#### What it does? 
+#### What does it do? 
 
 It retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
 
@@ -63,7 +62,7 @@ The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.m
 
 <hr>
 
-**If you are working with a different DNS provider please skip to step 5.**
+**The following documentation is set up for EKS, If you are using a different provider [follow the documentation here](https://github.com/kubernetes-sigs/external-dns)
 
 Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
