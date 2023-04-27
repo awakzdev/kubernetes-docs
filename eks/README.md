@@ -33,6 +33,6 @@ The AWS Load Balancer Controller manages AWS Elastic Load Balancers for a Kubern
 
 ### Installation
 1. Apply the `aws-ingress.tf`
-2. Create an example ingress using the `ingress.yaml
+2. Create an example ingress using the `ingress.yaml`
 
 By now you should have an AWS Application Load Balancer serving an Ingress on as HTTPS
