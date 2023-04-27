@@ -165,7 +165,6 @@ cert-manager also ensures certificates remain valid and up to date, attempting t
 
 ![cert-manager](https://user-images.githubusercontent.com/96201125/218077336-ca9ad9c3-c1cf-422a-a65b-f3d342127f63.svg)
 
-
 <hr>
 
 #### 1. Run the following command to install the cert-manager yaml:
@@ -175,13 +174,11 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 
 For more information on cert-manager, please refer to the [cert-manager installation page](https://cert-manager.io/docs/installation/)
 
-#### 2. Navigate to the cert-manager folder and install using:
+#### 2. Create a `ClusterIssuer`:
 ```
-cd cert-manager
 kubectl apply -f cluster-issuer.yaml
 ```
-**If the above step fails please repeat step 1.**
- 
+  
 **Note: We have to make sure the 'class' section under cluster-issuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case.** (To find your ingressclass name run - `kubectl get ingressclass`)
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
@@ -232,9 +229,10 @@ kubectl expose deployment nginx --port 80
 
 #### 4. Apply the ingress YAML file:
 
-Note: This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
+Note: 
+- This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
+- The ingress might vary depending on the Kubernetes provider you are using.
 ```
-cd ingress
 kubectl apply -f ingress.yaml
 ```
 
