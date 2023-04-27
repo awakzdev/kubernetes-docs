@@ -15,6 +15,8 @@ This repository contains Terraform code to install a Google Kubernetes Engine (G
 - [ExternalDNS](#externaldns)
 - [Cert-Manager (Lets-encrypt)](#cert-manager)
 - [Ingress-NGINX](#ingress-nginx)
+- [GKE-Identity-Aware-Proxy-SSO](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/iap)
+- [GKE-Cloud-SQL-Kubernetes-Proxy](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/sql-proxy)
 
 ## Terraform GKE Installation
 
