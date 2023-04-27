@@ -24,3 +24,14 @@ $Env:AWS_REGION="eu-central-1"
 
 aws eks update-kubeconfig --name $Env:CLUSTER_NAME --region $Env:AWS_REGION
 ```
+
+## Installing the AWS Load Balancer Controller add-on
+The AWS Load Balancer Controller manages AWS Elastic Load Balancers for a Kubernetes cluster. The controller provisions the following resources:
+
+- An AWS Application Load Balancer (ALB) when you create a Kubernetes Ingress.
+- An AWS Network Load Balancer (NLB) when you create a Kubernetes service of type LoadBalancer.
+
+1. Apply the `aws-ingress.tf`
+2. Create an example ingress using the `ingress.yaml
+
+By now you should have an AWS Application Load Balancer serving an Ingress on as HTTPS
