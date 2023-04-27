@@ -311,7 +311,7 @@ variable "crd_link" {
   default = "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"
 }
 
-# Executing CRD 
+# Executing CRD
 resource "null_resource" "apply_crd_link" {
   depends_on = [module.eks]
   
