@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-sql-proxy-deployment
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    matchLabels:
+      app: cloud-sql-proxy
+  template:
+    metadata:
+      labels:
+        app: cloud-sql-proxy
+    spec:
+      serviceAccountName: sql-proxy-sa
+      containers:
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:latest
+        command:
+          - "/cloud_sql_proxy"
+          - "-instances=cclab-carwiz:me-west1:deploy-cloudsql-postgresql=tcp:0.0.0.0:5432"
+        ports:
+        - containerPort: 5432
+        securityContext:
+          runAsNonRoot: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-sql-proxy-service
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    app: cloud-sql-proxy
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP

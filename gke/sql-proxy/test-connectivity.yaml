@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sql-client-connectivity-test
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    matchLabels:
+      app: sql-client-connectivity-test
+  template:
+    metadata:
+      labels:
+        app: sql-client-connectivity-test
+    spec:
+      serviceAccountName: sql-proxy-sa
+      containers:
+      - name: sql-client-connectivity-test
+        image: postgres:latest
+        env:
+        - name: INSTANCE_HOST
+          value: "cloud-sql-proxy-service"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "<USERNAME>"
+        - name: POSTGRES_PASSWORD
+          value: "<PASSWORD>"
+        - name: DB_NAME
+          value: "postgres"
