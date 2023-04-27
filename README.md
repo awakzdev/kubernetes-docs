@@ -63,7 +63,7 @@ The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.m
 
 <hr>
 
-### **The following documentation is set up for EKS, If you are using a different provider for External-DNS [follow the documentation here](https://github.com/kubernetes-sigs/external-dns)**
+### **The following External-DNS section is set up for EKS, If you are using a different provider for Kubernetes [follow the documentation here](https://github.com/kubernetes-sigs/external-dns)**
 
 Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
