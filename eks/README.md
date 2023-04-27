@@ -31,6 +31,7 @@ The AWS Load Balancer Controller manages AWS Elastic Load Balancers for a Kubern
 - An AWS Application Load Balancer (ALB) when you create a Kubernetes Ingress.
 - An AWS Network Load Balancer (NLB) when you create a Kubernetes service of type LoadBalancer.
 
+### Installation
 1. Apply the `aws-ingress.tf`
 2. Create an example ingress using the `ingress.yaml
 
