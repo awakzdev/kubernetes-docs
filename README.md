@@ -227,8 +227,6 @@ kubectl expose deployment nginx --port 80
 ```
 
 #### 4. Apply the ingress YAML file:
-
-Note: 
 - This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
 - The ingress might vary depending on the Kubernetes provider you are using.
 ```
