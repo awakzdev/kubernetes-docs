@@ -1,0 +1,2 @@
+gcp_project = "<your-gcp-project-name>"
+gcp_region = "<your-gcp-region>"
