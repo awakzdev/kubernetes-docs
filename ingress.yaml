@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - nginx.k8s-gke.cclab.cloud-castles.com
+    - example.com
     secretName: letsencrypt-prod # < cert-manager will store the created certificate in this secret.
   rules:
-  - host: nginx.k8s-gke.cclab.cloud-castles.com
+  - host: example.com
     http:
       paths:
       - path: /
