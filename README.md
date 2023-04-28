@@ -34,15 +34,7 @@ cd kubernetes-stack
 terraform init
 ```
 
-#### 4. Create a terraform.tfvars file to store your GCP project and region variables:
-```
-cat <<EOF > terraform.tfvars
-gcp_project = "<your-gcp-project-name>"
-gcp_region = "<your-gcp-region>"
-EOF
-```
-
-#### 5. Apply the Terraform code:
+#### 4. Apply the Terraform code:
 ```
 terraform apply
 ```
