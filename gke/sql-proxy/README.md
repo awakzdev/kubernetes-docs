@@ -74,16 +74,83 @@ YOUR-GSA-NAME@YOUR-GOOGLE-CLOUD-PROJECT.iam.gserviceaccount.com
 ```
 
 ### Deploy Cloud SQL Proxy and Test Connectivity
-There's a `deploy.yaml` file that sets up the Cloud SQL Proxy deployment and service. Note that it's configured to listen to PostgreSQL via the `-instances` flag and expose it on port 5432.
-
-It should follow the following format:
+Applying the following YAML sets up the Cloud SQL Proxy deployment and service. Note that it's configured to listen to PostgreSQL via the `-instances` flag and expose it on port 5432.
 ```yaml
--instances=<PROJECT_NAME>:<REGION>:<DATABASE_INSTANCE>=tcp:0.0.0.0:5432
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-sql-proxy-deployment
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    matchLabels:
+      app: cloud-sql-proxy
+  template:
+    metadata:
+      labels:
+        app: cloud-sql-proxy
+    spec:
+      serviceAccountName: sql-proxy-sa
+      containers:
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:latest
+        command:
+          - "/cloud_sql_proxy"
+          - "-instances=<PROJECT_ID>:<REGION>:<POSTGRES_NAME>=tcp:0.0.0.0:5432" # Change this line to match your database
+        ports:
+        - containerPort: 5432
+        securityContext:
+          runAsNonRoot: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-sql-proxy-service
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    app: cloud-sql-proxy
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
 ```
 
-There's a `test-connectivity.yaml` file that will deploy a test pod to check the connectivity to your PostgreSQL instance via the Cloud SQL Proxy, **Make sure you adjust the file with your credentials.**
+To deploy a test pod and check the connectivity to your PostgreSQL instance via the Cloud SQL Proxy apply the following YAML
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sql-client-connectivity-test
+  namespace: cloud-sql-proxy-operator-system
+spec:
+  selector:
+    matchLabels:
+      app: sql-client-connectivity-test
+  template:
+    metadata:
+      labels:
+        app: sql-client-connectivity-test
+    spec:
+      serviceAccountName: sql-proxy-sa
+      containers:
+      - name: sql-client-connectivity-test
+        image: postgres:latest
+        env:
+        - name: INSTANCE_HOST
+          value: "cloud-sql-proxy-service"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "<USERNAME>"
+        - name: POSTGRES_PASSWORD
+          value: "<PASSWORD>"
+        - name: DB_NAME
+          value: "postgres"
+```
 
-To test connectivity, you may use the following commands :
+After applying, you may use the following commands to begin testing connectivity:
 1. First, list the running pods in your cluster:
 ```
 kubectl get pods -n cloud-sql-proxy-operator-system
