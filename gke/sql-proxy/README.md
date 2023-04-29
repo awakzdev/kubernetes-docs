@@ -117,7 +117,7 @@ spec:
   type: ClusterIP
 ```
 
-To deploy a test pod and check the connectivity to your PostgreSQL instance via the Cloud SQL Proxy apply the following YAML
+To deploy a test pod and check the connectivity to your PostgreSQL instance apply the following YAML
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
