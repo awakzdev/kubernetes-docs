@@ -85,6 +85,12 @@ spec:
     oauthclientCredentials:
       secretName: my-secret
 ```
+You also need to associate Service ports with your BackendConfig to trigger turning on IAP. One way to make this association is to make all ports for the service default to your BackendConfig, which you can do by adding the following annotation to your Service resource:
+```yaml
+metadata:
+  annotations:
+    beta.cloud.google.com/backend-config: '{"default": "config-default"}'
+```
 
 ### Turning IAP off
 To turn IAP off, you must set `enabled` to `false` in the **BackendConfig**. If you delete the IAP block from BackendConfig, the settings will persist. For example, if IAP is enabled with `secretName: my_secret` and you delete the block, then IAP will still be turned on with the OAuth credentials stored in `my_secret.`
