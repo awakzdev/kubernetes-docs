@@ -17,6 +17,8 @@ This repository contains Terraform code to install a GKE / EKS cluster, with add
 - [GKE Cloud-SQL-Proxy](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/sql-proxy)
 
 ## ExternalDNS
+### Overview 
+
 ExternalDNS retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
 
 In a broader sense, ExternalDNS allows you to control DNS records dynamically via Kubernetes resources in a DNS provider-agnostic way.
@@ -27,14 +29,13 @@ The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.m
 
 #### **The following External-DNS section is set up for EKS, If you are using a different provider for Kubernetes [follow this documentation](https://github.com/kubernetes-sigs/external-dns)**
 
-
-
 Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
 In this method, the policy is attached to an IAM user, and the credentials secrets for the IAM user are then made available using a Kubernetes secret.
 
 This method is not the preferred method as the secrets in the credential file could be copied and used by an unauthorized threat actor. However, if the Kubernetes cluster is not hosted on AWS, it may be the only method available. Given this situation, it is important to limit the associated privileges to just minimal required privileges, i.e. read-write access to Route53, and not used a credentials file that has extra privileges beyond what is required.
 
+### Installation 
 #### 1. Create IAM Policy
 ```
 {
@@ -117,6 +118,7 @@ helm upgrade --install external-dns external-dns/external-dns -f values.yaml
 For more information about configuring and using the ExternalDNS chart, please refer to the [ExternalDNS documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
 
 ## Certificate manager
+### Overview 
 Certificate manager simplifies the process of obtaining, renewing and using certificates.
 
 It supports issuing certificates from a variety of sources, including Let's Encrypt (ACME), HashiCorp Vault, and Venafi TPP / TLS Protect Cloud, as well as local in-cluster issuance.
@@ -127,6 +129,7 @@ Cert-manager also ensures certificates remain valid and up to date, attempting t
 
 <hr>
 
+### Installation
 #### 1. Run the following command to install the cert-manager yaml:
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
@@ -163,31 +166,29 @@ An Ingress does not expose arbitrary ports or protocols. Exposing services other
 
 <hr>
 
-#### 1. To install ingress-nginx, run the following command:
-Add the helm chart
+### Installation
+1. Add the helm chart
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update  
 ```
-Install the chart
+2. Install the chart
 ```
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
 ```
 
-For more information about the ingress-nginx installation, please refer to the [getting started documententation](https://kubernetes.github.io/ingress-nginx/deploy/)
-
-#### 2. Create a deployment for Nginx:
+3. Create a deployment for Nginx:
 ```
 kubectl create deploy nginx --image nginx
 ```
 
-#### 3. Expose the Nginx deployment:
+4. Expose the Nginx deployment:
 We're gonna set this as ClusterIP to only receive communicating from inside the cluster while our ingress exposes our application.
 ```
 kubectl expose deployment nginx --port 80
 ```
 
-#### 4. Apply the ingress YAML file:
+5. Apply the ingress YAML file:
 - This ingress structure may be applied for different services if needed. You may edit and reuse for different services.
 - The ingress might vary depending on the Kubernetes provider you are using.
 ```
@@ -198,6 +199,8 @@ kubectl apply -f ingress.yaml
 ```
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
+
+For more information about the ingress-nginx installation, please refer to the [getting started documententation](https://kubernetes.github.io/ingress-nginx/deploy/)
 
 # Feedback and Contributions
 Feedback is welcomed, issues, and pull requests! If you have any suggestions or find any bugs, please open an issue on my GitHub repository.
