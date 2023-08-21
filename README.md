@@ -10,27 +10,24 @@ This repository contains Terraform code to install a GKE / EKS cluster, with add
 
 ## Overview
 - [ExternalDNS](#externaldns)
-- [Cert-Manager (Lets-encrypt)](#cert-manager)
-- [Ingress-NGINX](#ingress-nginx)
+- [Cert-Manager (Lets-encrypt)](#certificate-manager)
+- [NGINX-Ingress](#nginx-ingress)
 - [EKS AWS Load Balancer Ingress](https://github.com/awakzdev/kubernetes-stack/tree/main/eks)
 - [GKE Ingress Identity-Aware-Proxy-SSO](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/iap)
 - [GKE Cloud-SQL-Proxy](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/sql-proxy)
 
 ## ExternalDNS
-
-#### What does it do? 
-
-It retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
+ExternalDNS retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
 
 In a broader sense, ExternalDNS allows you to control DNS records dynamically via Kubernetes resources in a DNS provider-agnostic way.
 
 The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md) contains additional information and addresses several questions about key concepts of ExternalDNS.
 
-<image src="https://user-images.githubusercontent.com/96201125/218077591-25628816-337a-46e3-a198-cf5facf542e8.png" width=300>
-
 <hr>
 
-### **The following External-DNS section is set up for EKS, If you are using a different provider for Kubernetes [follow the documentation here](https://github.com/kubernetes-sigs/external-dns)**
+#### **The following External-DNS section is set up for EKS, If you are using a different provider for Kubernetes [follow this documentation](https://github.com/kubernetes-sigs/external-dns)**
+
+
 
 Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
@@ -115,19 +112,16 @@ domainFilters: [foo.domain.com]
 helm upgrade --install external-dns external-dns/external-dns -f values.yaml
 ```
 
-**When installation is complete check to see credentials are currently set by checking logs on your newly created pod.**
+**When installation is complete please review logs from your newly created pod to see if everything was set correctly.**
 
-For more information on configuring and using the external-dns chart, please refer to the [external-dns chart documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
+For more information about configuring and using the ExternalDNS chart, please refer to the [ExternalDNS documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
 
-## Cert-Manager
-
-### What it does? 
-
-cert-manager adds certificates and certificate issuers as resource types in Kubernetes clusters, and simplifies the process of obtaining, renewing and using those certificates.
+## Certificate manager
+Certificate manager simplifies the process of obtaining, renewing and using certificates.
 
 It supports issuing certificates from a variety of sources, including Let's Encrypt (ACME), HashiCorp Vault, and Venafi TPP / TLS Protect Cloud, as well as local in-cluster issuance.
 
-cert-manager also ensures certificates remain valid and up to date, attempting to renew certificates at an appropriate time before expiry to reduce the risk of outages and remove toil.
+Cert-manager also ensures certificates remain valid and up to date, attempting to renew certificates at an appropriate time before expiry to reduce the risk of outages and remove toil.
 
 ![cert-manager](https://user-images.githubusercontent.com/96201125/218077336-ca9ad9c3-c1cf-422a-a65b-f3d342127f63.svg)
 
@@ -138,18 +132,18 @@ cert-manager also ensures certificates remain valid and up to date, attempting t
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 ```
 
-For more information on cert-manager, please refer to the [cert-manager installation page](https://cert-manager.io/docs/installation/)
+For more information on cert-manager, please refer to the [cert-manager documentation](https://cert-manager.io/docs/installation/)
 
 #### 2. Create a `ClusterIssuer`:
 ```
 kubectl apply -f cluster-issuer.yaml
 ```
   
-**Note: We have to make sure the 'class' section under cluster-issuer.yaml matches our ingressclass name. by default it is set to nginx but it is not always the case.** (To find your ingressclass name run - `kubectl get ingressclass`)
+**Note: We have to make sure the 'class' section under `cluster-issuer.yaml` matches our ingressclass name. by default it is set to nginx.** (To find your ingressclass name run - `kubectl get ingressclass`)
 
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
-## Ingress-NGINX
+## NGINX Ingress
 
 ### Overview
 
@@ -205,5 +199,5 @@ kubectl apply -f ingress.yaml
 kubectl get Issuers,ClusterIssuers,Certificates,CertificateRequests,Orders,Challenges --all-namespaces
 ```
 
-# License
-[Apache License 2.0](https://github.com/awakzdev/kubernetes-stack/blob/main/LICENSE)
+# Feedback and Contributions
+Feedback is welcomed, issues, and pull requests! If you have any suggestions or find any bugs, please open an issue on my GitHub repository.
