@@ -10,37 +10,12 @@ This repository contains Terraform code to install a GKE / EKS cluster, with add
 - [Helm v3](https://helm.sh/docs/helm/helm_install/)
 
 ## Overview
-- [Terraform Kubernetes Provisioning (GKE)](#terraform-gke-installation)
 - [ExternalDNS](#externaldns)
 - [Cert-Manager (Lets-encrypt)](#cert-manager)
 - [Ingress-NGINX](#ingress-nginx)
 - [EKS AWS Load Balancer Ingress](https://github.com/awakzdev/kubernetes-stack/tree/main/eks)
 - [GKE Ingress Identity-Aware-Proxy-SSO](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/iap)
 - [GKE Cloud-SQL-Proxy](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/sql-proxy)
-
-## Terraform GKE Installation
-
-#### 1. Clone this repository:
-```
-git clone https://github.com/awakzdev/kubernetes-stack.git
-```
-
-#### 2. Change into the repository directory:
-```
-cd kubernetes-stack
-```
-
-#### 3. Initialize Terraform:
-```
-terraform init
-```
-
-#### 4. Apply the Terraform code:
-```
-terraform apply
-```
-
-For more information on installing GKE with Terraform, please refer to the [Terraform GKE documentation.](https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke).
 
 ## ExternalDNS
 
