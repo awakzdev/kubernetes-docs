@@ -17,25 +17,26 @@ This repository contains Terraform code to install a GKE / EKS cluster, with add
 - [GKE Cloud-SQL-Proxy](https://github.com/awakzdev/kubernetes-stack/tree/main/gke/sql-proxy)
 
 ## ExternalDNS
-### Overview 
+### 🌐 Overview 
 
-ExternalDNS retrieves a list of resources (Services, Ingresses, etc.) from the Kubernetes API to determine a desired list of DNS records. Unlike KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. AWS Route 53 or Google Cloud DNS.
+**ExternalDNS** integrates with Kubernetes to automatically manage your DNS records. Here's how it works:
 
-In a broader sense, ExternalDNS allows you to control DNS records dynamically via Kubernetes resources in a DNS provider-agnostic way.
+1. **Resource Retrieval**: It fetches resources like Services, Ingresses, and more from the Kubernetes API to determine the desired set of DNS records.
+2. **DNS Configuration**, Not Hosting: Unlike KubeDNS, ExternalDNS isn't a DNS server. Instead, it configures third-party DNS providers such as AWS Route 53, Google Cloud DNS, and others.
+3. **Provider Agnostic**: With ExternalDNS, you can control DNS records dynamically using Kubernetes resources, no matter which DNS provider you're working with.
 
-The [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md) contains additional information and addresses several questions about key concepts of ExternalDNS.
+🔍 For a deeper dive into ExternalDNS, check out the [FAQ](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md), where you'll find answers to key questions and concepts.
 
-<hr>
+⚠️ Note
+- 📌 EKS Focused: The upcoming External-DNS section is tailored specifically for EKS (Amazon Elastic Kubernetes Service).
+- 📌 Other Kubernetes Providers: If you're using a Kubernetes provider other than EKS, please [refer to the official documentation.](https://github.com/kubernetes-sigs/external-dns)
 
-#### **The following External-DNS section is set up for EKS, If you are using a different provider for Kubernetes [follow this documentation](https://github.com/kubernetes-sigs/external-dns)**
-
+### Installation 
 Before installing ExternalDNS, we need to set up Route53 as our DNS method. In this case, we'll use static credentials to grant ExternalDNS access to Route53.
 
 In this method, the policy is attached to an IAM user, and the credentials secrets for the IAM user are then made available using a Kubernetes secret.
 
 This method is not the preferred method as the secrets in the credential file could be copied and used by an unauthorized threat actor. However, if the Kubernetes cluster is not hosted on AWS, it may be the only method available. Given this situation, it is important to limit the associated privileges to just minimal required privileges, i.e. read-write access to Route53, and not used a credentials file that has extra privileges beyond what is required.
-
-### Installation 
 #### 1. Create IAM Policy
 ```
 {
@@ -118,12 +119,16 @@ helm upgrade --install external-dns external-dns/external-dns -f values.yaml
 For more information about configuring and using the ExternalDNS chart, please refer to the [ExternalDNS documentation](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns).
 
 ## Certificate manager
-### Overview 
-Certificate manager simplifies the process of obtaining, renewing and using certificates.
+### 📜 Overview 
+**Certificate Manager** simplifies the process of obtaining, renewing and using certificates.
 
-It supports issuing certificates from a variety of sources, including Let's Encrypt (ACME), HashiCorp Vault, and Venafi TPP / TLS Protect Cloud, as well as local in-cluster issuance.
+It supports issuing certificates from a variety of sources:
+- 🟢 Let's Encrypt (ACME)
+- 🔑 HashiCorp Vault
+- ☁️ Venafi TPP / TLS Protect Cloud
+- 🌐 Local in-cluster issuance
 
-Cert-manager also ensures certificates remain valid and up to date, attempting to renew certificates at an appropriate time before expiry to reduce the risk of outages and remove toil.
+Certmanager also ensures certificates remain valid and up to date, attempting to renew certificates at an appropriate time before expiry to reduce the risk of outages and remove toil.
 
 ![cert-manager](https://user-images.githubusercontent.com/96201125/218077336-ca9ad9c3-c1cf-422a-a65b-f3d342127f63.svg)
 
@@ -147,22 +152,28 @@ kubectl apply -f cluster-issuer.yaml
 For more information on the installation of cert-manager, visit https://cert-manager.io/docs/.
 
 ## NGINX Ingress
+### 📜Overview
 
-### Overview
+NGINX Ingress enhances your Kubernetes ecosystem by offering functionalities such as load balancing, SSL termination, and name-based virtual hosting. At its core, Ingress focuses on:
 
-Ingress may provide load balancing, SSL termination and name-based virtual hosting for Kubernetes using NGINX.
-Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+1. **Routing**: Directs external HTTP and HTTPS routes to internal cluster services, guided by the Ingress resource's rules.
 
-Here is a simple example where an Ingress sends all its traffic to one Service:
+2. **Examples in Action**:
+
 ![ingress](https://user-images.githubusercontent.com/96201125/218079432-176adbaf-31e8-4c13-910b-3f15799dfb59.svg)
 
-Figure. Ingress
+In the illustration above, the Ingress routes all traffic to a single service.
 
-An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+3. **Extended Configurations**: Beyond basic routing, Ingress can:
+- Provide externally-reachable URLs for services
+- Load balance incoming traffic
+- Terminate SSL/TLS connections
+- Offer name-based virtual hosting
+4. **Ingress Controller**: This entity ensures the Ingress' promises are kept, usually with a load balancer. It can also set up edge routers or additional frontends to manage incoming traffic.
 
-An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically uses a service of type Service.Type=NodePort or Service.Type=LoadBalancer.
+5. **Protocols & Ports**: Ingress primarily deals with HTTP and HTTPS. For exposing other services and protocols, you'll likely use Service.Type=NodePort or Service.Type=LoadBalancer.
 
-[Learn more about Ingress on the main Kubernetes documentation site.](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+[🔍 Dive deeper into the world of Ingress with the official Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 
 <hr>
 
