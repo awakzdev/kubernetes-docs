@@ -3,7 +3,6 @@
 This repository contains Terraform code to install a GKE / EKS cluster, with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (let's-encrypt) and more.
 
 ## Requirements
-- Domain name to use with Ingress
 - [Terraform 0.12 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 - [GCloud CLI for GKE](https://cloud.google.com/sdk/docs/install)
 - [AWS CLI for EKS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
