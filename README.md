@@ -135,14 +135,12 @@ Certmanager also ensures certificates remain valid and up to date, attempting to
 <hr>
 
 ### Installation
-#### 1. Run the following command to install the cert-manager yaml:
+#### 1. Run the following command to install the **cert-manager.yaml**:
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 ```
 
-For more information on cert-manager, please refer to the [cert-manager documentation](https://cert-manager.io/docs/installation/)
-
-#### 2. Create a `ClusterIssuer`:
+#### 2. Create a **ClusterIssuer**:
 ```
 kubectl apply -f cluster-issuer.yaml
 ```
