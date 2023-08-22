@@ -1,6 +1,6 @@
 # Kubernetes Infrastructure stack
 
-This repository contains Terraform code to install a GKE / EKS cluster, with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (let's-encrypt) and more.
+This repository contains Terraform code to install a GKE / EKS cluster. with additional information on the installations process of externaldns and ingress-nginx secured by cert-manager (let's-encrypt) and more.
 
 ## Requirements
 - [Terraform 0.12 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
