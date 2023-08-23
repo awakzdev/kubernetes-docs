@@ -95,7 +95,7 @@ EOF
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 ```
 
-#### 5. Adding credentials to [values.yaml](https://github.com/awakzdev/KubeGate/blob/main/eks/values.yaml)
+#### 5. Adding credentials to [external-dns-values.yaml](https://github.com/awakzdev/KubeGate/blob/main/eks/values.yaml)
 [Credentials were generated on step 3](#3-create-static-credentials).
 ```
 Setting credentials by editing the data section.
