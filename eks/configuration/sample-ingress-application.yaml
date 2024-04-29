@@ -48,16 +48,11 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
-  tls:
-  - hosts:
-    - game-2048.test.cclab.cloud-castles.com
-    secretName: game-2048-tls
   ingressClassName: alb # nginx
   rules:
-    - host: game-2048.test.cclab.cloud-castles.com
-      http:
+    - http:
         paths:
         - path: /
           pathType: Prefix
