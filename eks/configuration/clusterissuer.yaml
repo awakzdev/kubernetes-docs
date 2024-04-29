@@ -12,7 +12,7 @@ spec:
     - dns01:
         route53:
           region: "il-central-1"
-          hostedZoneID: "Z0904144D3XONJ6NGAN3" # aws route53 list-hosted-zones
+          hostedZoneID: "0000000000" # aws route53 list-hosted-zones
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -28,4 +28,4 @@ spec:
     - dns01:
         route53:
           region: "il-central-1"
-          hostedZoneID: "Z0904144D3XONJ6NGAN3" # aws route53 list-hosted-zones
+          hostedZoneID: "0000000000" # aws route53 list-hosted-zones
