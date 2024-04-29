@@ -1,3 +1,4 @@
+# A sample application to test the functionality of 'aws-load-balancer-controller' ingress configuration.
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -45,16 +46,17 @@ metadata:
   namespace: game-2048
   name: ingress-2048
   annotations:
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
-    - game-2048.cclab.cloud-castles.com
-  ingressClassName: alb
+    - game-2048.test.cclab.cloud-castles.com
+    secretName: game-2048-tls
+  ingressClassName: alb # nginx
   rules:
-    - host: game-2048.cclab.cloud-castles.com
+    - host: game-2048.test.cclab.cloud-castles.com
       http:
         paths:
         - path: /
